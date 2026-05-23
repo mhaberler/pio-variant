@@ -1,0 +1,19 @@
+# clangd config for pioarduino ESP32 builds.
+# Regenerate compile_commands.json after env switch or lib_deps change:
+#   pio run -t compiledb               # default env (my_board / classic ESP32)
+#   pio run -t compiledb -e esp32_p4_wifi6
+#
+# Target triple must match the active env's chip family:
+#   classic ESP32     -> xtensa-esp32-elf
+#   ESP32-S2 / S3     -> xtensa-esp32s2-elf / xtensa-esp32s3-elf
+#   ESP32-C3/C5/C6/H2/P4 (RISC-V) -> riscv32-esp-elf
+CompileFlags:
+  Remove:
+    - -mlongcalls
+    - -mtext-section-literals
+    - -fno-tree-switch-conversion
+    - -free
+    - -fstrict-volatile-bitfields
+  Add:
+    - -ferror-limit=0
+    - --target=xtensa-esp32-elf
